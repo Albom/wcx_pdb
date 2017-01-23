@@ -1,5 +1,4 @@
 #include <windows.h>
-#include "stub.cpp"
 #include "wcxhead.h"
 
 //============================================
@@ -31,9 +30,9 @@ char inifile[MAX_PATH];
 
 //============================================
 
-const int nTYPES = 4;
+#define nTYPES 4
 
-char *id[nTYPES] = 
+char id[nTYPES][5] = 
 {
 "REAd",
 "Foto",
@@ -41,7 +40,7 @@ char *id[nTYPES] =
 "GPlm"
 };
 
-char *type[nTYPES] = 
+char type[nTYPES][5] = 
 {
 "TEXt",
 "Foto", 
@@ -49,7 +48,7 @@ char *type[nTYPES] =
 "zTXT"
 };
 
-char *pc[nTYPES] = 
+char pc[nTYPES][5] = 
 {
 ".txt",
 "",
@@ -62,10 +61,7 @@ char *pc[nTYPES] =
 DWORD Swap32(DWORD x)
 {
 
-_asm{
-mov EAX, x
-bswap EAX
-}
+return ( (x&0xff) << 24 ) | ( (x&0xff00) << 8 ) | ( (x&0xff0000) >> 8 ) | ( (x&0xff000000) >> 24 );
 
 }
 
@@ -74,10 +70,7 @@ bswap EAX
 WORD Swap16(WORD x)
 {
 
-_asm {
-	mov AX, x
-  xchg ah,al
-}
+return ( (x&0xff) << 8 ) | ( (x&0xff00) >> 8 ) ;
 
 }
 
@@ -137,16 +130,16 @@ return 0<<25 | 1<<21 | 1<<16 |
 //============================================
 
 
-boolean vg(int y)
+int isLeap(int y)
 {
 
 if (y%4 != 0)
-	return false;
+	return FALSE;
 	
 if ((y%100 == 0)&&(y%400 != 0))
-	return false;
+	return FALSE;
 
-return true;
+return TRUE;
 
 }
 
@@ -184,7 +177,7 @@ if ( d > ms[m] )
 	{
 	if (m == 1)
 		{
-		if ( vg(y) )
+		if ( isLeap(y) )
 			d-=29;
 		else d-=28;
 		}

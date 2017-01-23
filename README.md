@@ -1,5 +1,5 @@
 # wcx_pdb
-A WCX plugin for Total Commander. 
+A WCX plugin for Total Commander (or Double Commander). 
 
 WCX_PDB allows you to open (Ctrl+PageDown) Palm DB files (*.pdb), 
 view records (F3), extract the content (F5), and create new databases (Alt+F5).
